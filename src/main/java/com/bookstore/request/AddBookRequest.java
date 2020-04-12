@@ -4,13 +4,13 @@ import javax.validation.constraints.NotBlank;
 
 public class AddBookRequest {
 
-    @NotBlank
+    @NotBlank(message = "ISBN cannot be blank")
     private String isbn;
 
-    @NotBlank
+    @NotBlank(message = "Author name cannot bee blank")
     private String author;
 
-    @NotBlank
+    @NotBlank(message = "Title cannot be blank")
     private String title;
 
     private String description;
