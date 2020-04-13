@@ -11,6 +11,7 @@ import com.bookstore.request.BookSearchRequest;
 import com.bookstore.response.AddBookResponse;
 import com.bookstore.response.BookSearchResponse;
 import com.bookstore.service.BooksService;
+import com.bookstore.service.PriceService;
 import com.bookstore.service.StockService;
 import com.bookstore.service.impl.BooksServiceImpl;
 import com.bookstore.vo.Book;
@@ -49,6 +50,9 @@ public class BooksServiceTest {
     @Mock
     private ConversionService conversionService;
 
+    @Mock
+    private PriceService priceService;
+
     @InjectMocks
     private BooksService booksService = new BooksServiceImpl();
 
@@ -66,6 +70,7 @@ public class BooksServiceTest {
         Mockito.doNothing().when(esIndexerService).indexBooks(book);
         Mockito.when(booksRepository.save(beforeSaveEntity)).thenReturn(savedEntity);
         Mockito.doNothing().when(stockService).initializeStock(savedEntity.getId(), QUANTITY);
+        Mockito.doNothing().when(priceService).setPrice(savedEntity.getId(), request.getPrice());
 
         AddBookResponse result = booksService.addBook(request);
 

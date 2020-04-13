@@ -1,5 +1,6 @@
 package com.bookstore.request;
 
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
 
 public class AddBookRequest {
@@ -12,6 +13,9 @@ public class AddBookRequest {
 
     @NotBlank(message = "Title cannot be blank")
     private String title;
+
+    @DecimalMin(value = "1.00", message = "Price value cannot be less than 1.")
+    private Double price;
 
     private String description;
 
@@ -45,5 +49,13 @@ public class AddBookRequest {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 }

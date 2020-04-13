@@ -31,6 +31,10 @@ public class TestDataUtil {
 
     public static Long ORDER_ID = 2002L;
 
+    public static Double BOOK_PRICE = 500.00;
+
+    public static Long PRICE_INFO_ID = 5005L;
+
 
     public static AddBookRequest getAddBookRequest() {
         AddBookRequest bookRequest = new AddBookRequest();
@@ -38,6 +42,7 @@ public class TestDataUtil {
         bookRequest.setIsbn(ISBN);
         bookRequest.setTitle(TITLE);
         bookRequest.setDescription(DESCRIPTION);
+        bookRequest.setPrice(BOOK_PRICE);
 
         return bookRequest;
     }
@@ -48,6 +53,7 @@ public class TestDataUtil {
         response.setIsbn(ISBN);
         response.setTitle(TITLE);
         response.setDescription(DESCRIPTION);
+        response.setPrice(BOOK_PRICE);
 
         return response;
     }

@@ -12,6 +12,7 @@ import com.bookstore.request.BookSearchRequest;
 import com.bookstore.response.AddBookResponse;
 import com.bookstore.response.BookSearchResponse;
 import com.bookstore.service.BooksService;
+import com.bookstore.service.PriceService;
 import com.bookstore.service.StockService;
 import com.bookstore.vo.Book;
 import org.slf4j.Logger;
@@ -45,6 +46,9 @@ public class BooksServiceImpl implements BooksService {
     @Resource
     private StockService stockService;
 
+    @Resource
+    private PriceService priceService;
+
     @Override
     @Transactional(rollbackFor = Exception.class)
     public AddBookResponse addBook(AddBookRequest addBookRequest) {
@@ -63,8 +67,12 @@ public class BooksServiceImpl implements BooksService {
         LOGGER.info("Book with isbn {} added successfully - {}.", addBookRequest.getIsbn(), bookEntity.getId());
         esIndexerService.indexBooks(conversionService.convert(result, Book.class));
         initializeStock(result.getId());
+        setPrice(result.getId(), addBookRequest.getPrice());
 
-        return conversionService.convert(result, AddBookResponse.class);
+        AddBookResponse response = conversionService.convert(result, AddBookResponse.class);
+        response.setPrice(addBookRequest.getPrice());
+
+        return response;
     }
 
     @Override
@@ -85,6 +93,10 @@ public class BooksServiceImpl implements BooksService {
 
     private void initializeStock(Long productId) {
         stockService.initializeStock(productId, ApplicationContants.REFILL_QUANTITY);
+    }
+
+    private void setPrice(Long productId, Double price) {
+        priceService.setPrice(productId, price);
     }
 
 }

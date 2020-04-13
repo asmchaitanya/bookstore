@@ -5,9 +5,11 @@ import com.bookstore.request.BookSearchRequest;
 import com.bookstore.response.AddBookResponse;
 import com.bookstore.response.BookSearchResponse;
 import com.bookstore.service.BooksService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -25,6 +27,7 @@ public class BooksController {
     private BooksService booksService;
 
     @RequestMapping(method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.CREATED)
     public AddBookResponse addBook(@Valid @RequestBody AddBookRequest addBookRequest) {
         return booksService.addBook(addBookRequest);
     }

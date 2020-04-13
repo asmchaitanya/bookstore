@@ -10,6 +10,8 @@ public class AddBookResponse {
 
     private String author;
 
+    private Double price;
+
     public String getIsbn() {
         return isbn;
     }
@@ -40,5 +42,13 @@ public class AddBookResponse {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 }
